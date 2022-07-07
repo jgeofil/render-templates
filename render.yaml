@@ -26,6 +26,25 @@ services:
       paths:
       - prometheus/**
 
+# TAILSCALE -----------------------------------------------------------
+# web | docker
+  - type: web
+    name: render-subnet-router
+    env: docker
+    region: frankfurt
+    plan: starter
+    envVars:
+      - key: TAILSCALE_AUTHKEY
+        sync: false
+      - key: TAILSCALE_VERSION
+        value: 1.26.1
+      - key: ADVERTISE_ROUTES
+        value: 10.0.0.0/8
+    disk:
+      name: tailscale-state
+      mountPath: /var/lib/tailscale
+      sizeGB: 1
+
 # REDASH ---------------------------------------------------------------
 # web | docker
 # Do not forget to run `render-redash create_db` in Render Shell after 
