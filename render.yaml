@@ -9,7 +9,7 @@ services:
   - type: web
     name: prometheus
     env: docker
-    dockerfilePath: prometheus\Dockerfile
+    dockerfilePath: ./prometheus/Dockerfile
     region: frankfurt
     plan: starter
     branch: main
@@ -25,10 +25,10 @@ services:
   - type: web
     name: redash
     env: docker
-    dockerfilePath: redash\Dockerfile
+    dockerfilePath: ./redash/Dockerfile
     region: frankfurt
     plan: standard
-    dockerCommand: redash\render-redash server
+    dockerCommand: ./redash/render-redash server
     envVars:
       - key: REDASH_DATABASE_URL
         fromDatabase:
@@ -48,7 +48,8 @@ services:
   - type: worker
     name: redash-scheduler
     env: docker
-    dockerCommand: redash\render-redash scheduler
+    dockerfilePath: ./redash/Dockerfile
+    dockerCommand: ./redash/render-redash scheduler
     region: frankfurt
     envVars:
       - key: REDASH_DATABASE_URL
@@ -75,7 +76,8 @@ services:
     env: docker
     plan: standard
     region: frankfurt
-    dockerCommand: redash\render-redash worker
+    dockerfilePath: ./redash/Dockerfile
+    dockerCommand: ./redash/render-redash worker
     envVars:
       - key: REDASH_DATABASE_URL
         fromDatabase:
