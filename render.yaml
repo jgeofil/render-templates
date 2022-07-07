@@ -2,6 +2,7 @@
 
 databases:
   - name: redash
+    region: frankfurt
     databaseName: redash
     user: redash
 
